@@ -704,7 +704,7 @@ function compute() {
   const monthsWithRent  = 12 - annualVacancy;
   const annualIncome    = rent * monthsWithRent;
   const brokerAnnual    = rent * BROKER / tenancyYears;
-  const guaranteed      = rent * 0.9;
+  const guaranteed      = rent;
 
   // Cost box
   const perSwitchV  = rent * vacancyMonths;
