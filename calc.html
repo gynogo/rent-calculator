@@ -6,7 +6,7 @@
   <title>出租收益試算｜租逸</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Noto+Serif+TC:wght@600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -33,121 +33,99 @@
     /* ── Nav ── */
     .nav {
       background: var(--dark);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 14px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
     }
     .nav-logo { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; color: #fff; letter-spacing: .06em; }
     .nav-cta  { font-size: 13px; font-weight: 700; color: var(--dark); background: var(--gold); padding: 8px 16px; text-decoration: none; }
 
     /* ── Page Head ── */
     .page-head { background: var(--dark); color: #fff; padding: 36px 22px 32px; }
-    .page-head-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+    .page-head-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
     .page-head h1 { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700; line-height: 1.45; margin-bottom: 10px; }
-    .page-head p  { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.65; }
+    .page-head p  { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.65; }
 
     /* ── Section ── */
     .section { padding: 28px 20px 0; }
-    .section-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--dim); text-transform: uppercase; margin-bottom: 14px; }
+    .section-label { font-size: 13px; font-weight: 700; letter-spacing: .06em; color: var(--muted); margin-bottom: 14px; }
 
-    /* ── Input card ── */
-    .input-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .input-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 13px 18px;
-      border-bottom: 1px solid var(--border);
-      min-height: 58px;
-    }
-    .input-row:last-child { border-bottom: none; }
-    .input-row-label { font-size: 15px; color: var(--ink); flex: 1; line-height: 1.4; }
-    .input-row-sub   { font-size: 11px; color: var(--dim); margin-top: 2px; }
+    /* ── 月租金卡片 ── */
+    .cards { display: flex; flex-direction: column; gap: 10px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    /* editable text inputs */
-    .num-input {
-      background: var(--bg);
-      border: none;
-      border-bottom: 2px solid var(--dark);
-      padding: 5px 10px;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--dark);
-      font-family: 'Noto Sans TC', sans-serif;
-      text-align: right;
-      width: 130px;
-      border-radius: 0;
-      -moz-appearance: textfield;
+    .rent-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .rent-header { padding: 16px 20px 12px; }
+    .rent-label  { font-size: 15px; font-weight: 700; color: var(--ink); }
+    .rent-body   { padding: 0 20px 20px; }
+    .rent-value-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 18px; padding-top: 4px; }
+    .fine-btn {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 24px; color: var(--dark); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 300; line-height: 1;
+      user-select: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
     }
-    .num-input::-webkit-outer-spin-button,
-    .num-input::-webkit-inner-spin-button { -webkit-appearance: none; }
-    .num-input:focus { outline: none; border-bottom-color: var(--gold); }
+    .fine-btn:active { background: var(--border); }
+    .rent-num-wrap { flex: 1; text-align: center; }
+    .rent-num  { font-family: 'DM Serif Display', serif; font-size: 46px; line-height: 1; letter-spacing: -.5px; color: var(--dark); display: block; }
+    .rent-unit { font-size: 14px; font-weight: 500; color: var(--muted); display: block; margin-top: 2px; }
 
-    /* select */
-    .sel-input {
-      background: var(--bg);
-      border: none;
-      border-bottom: 2px solid var(--dark);
-      padding: 5px 10px;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--dark);
-      font-family: 'Noto Sans TC', sans-serif;
-      appearance: none;
-      cursor: pointer;
-      min-width: 90px;
-      text-align: right;
+    input[type=range] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 5px; border-radius: 3px; outline: none; cursor: pointer;
+      background: linear-gradient(to right, var(--dark) 0%, var(--dark) var(--pct,12%), var(--border) var(--pct,12%), var(--border) 100%);
     }
-    .sel-input:focus { outline: none; border-bottom-color: var(--gold); }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--dark); border: 3px solid var(--card);
+      box-shadow: 0 1px 6px rgba(0,0,0,.2); cursor: pointer;
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--dark); border: 3px solid var(--card);
+      box-shadow: 0 1px 6px rgba(0,0,0,.2); cursor: pointer;
+    }
+    .range-hints { display: flex; justify-content: space-between; font-size: 11px; color: var(--dim); margin-top: 7px; }
 
-    /* fixed display */
-    .input-fixed {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--dim);
-      background: rgba(0,0,0,0.05);
-      border-radius: 6px;
-      padding: 5px 14px;
+    /* ── 小標籤卡片（2-col）── */
+    .tag-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .tag-label    { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .02em; }
+    .tag-sublabel { font-size: 10px; color: var(--dim); margin-top: -6px; }
+    .tag-control  { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+    .tag-btn {
+      width: 34px; height: 34px; flex-shrink: 0;
+      background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 20px; color: var(--dark); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 300; line-height: 1;
+      user-select: none; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
     }
+    .tag-btn:active { background: var(--border); }
+    .tag-val { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--dark); text-align: center; flex: 1; line-height: 1.1; letter-spacing: -.2px; }
+    .tag-val .unit { font-family: 'Noto Sans TC', sans-serif; font-size: 12px; color: var(--muted); font-weight: 500; margin-left: 2px; }
+    .tag-broker-val { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--dark); text-align: center; line-height: 1.1; letter-spacing: -.2px; }
+    .tag-broker-val .unit { font-family: 'Noto Sans TC', sans-serif; font-size: 12px; color: var(--muted); font-weight: 500; margin-left: 2px; }
 
-    /* stepper */
-    .stepper { display: flex; align-items: center; gap: 4px; }
-    .step-btn {
-      width: 42px;
-      height: 42px;
-      background: var(--bg);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-size: 22px;
-      color: var(--dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      line-height: 1;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-    .step-btn:active { background: var(--border); }
-    .step-display {
-      min-width: 64px;
-      text-align: center;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--dark);
-    }
+    /* ── 稅率離散滑桿 ── */
+    .tax-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    .tax-header { padding: 16px 20px 12px; }
+    .tax-label    { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+    .tax-sublabel { font-size: 12px; color: var(--dim); }
+    .tax-body     { padding: 0 20px 20px; }
+    .tax-value-row { text-align: center; margin-bottom: 14px; padding-top: 4px; }
+    .tax-num  { font-family: 'DM Serif Display', serif; font-size: 46px; line-height: 1; letter-spacing: -.5px; color: var(--dark); }
+    .tax-unit { font-size: 16px; font-weight: 500; color: var(--muted); margin-left: 2px; }
+    .tax-ticks { display: flex; justify-content: space-between; padding: 0 13px; margin-top: 9px; }
+    .tick { font-size: 11px; color: var(--dim); text-align: center; cursor: pointer; transition: color .15s, font-weight .15s; padding: 2px 4px; }
+    .tick.active { color: var(--dark); font-weight: 700; }
 
     /* ── Cost box ── */
     .cost-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 18px 16px; margin-top: 12px; }
-    .cost-box-title { font-size: 12px; font-weight: 700; color: var(--dim); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .08em; }
-    .cost-box-market { font-size: 12px; color: var(--dim); margin-bottom: 12px; line-height: 1.6; }
+    .cost-box-title  { font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+    .cost-box-market { font-size: 13px; color: var(--dim); margin-bottom: 12px; line-height: 1.6; }
     .cost-line  { display: flex; justify-content: space-between; font-size: 15px; color: var(--ink); padding: 4px 0; }
     .cost-hr    { border: none; border-top: 1px solid var(--border); margin: 10px 0; }
     .cost-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; color: var(--ink); }
@@ -158,121 +136,99 @@
     .zero-items { display: flex; justify-content: space-around; gap: 4px; margin-bottom: 14px; }
     .zero-item  { display: flex; flex-direction: column; align-items: center; gap: 7px; flex: 1; }
     .zero-icon  {
-      width: 46px; height: 46px; border-radius: 50%;
-      background: var(--gold);
+      width: 46px; height: 46px; border-radius: 50%; background: var(--gold);
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Noto Serif TC', serif;
-      font-size: 20px; font-weight: 700; color: var(--dark);
+      font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700; color: var(--dark);
     }
-    .zero-item-label { font-size: 12px; color: rgba(255,255,255,0.75); text-align: center; line-height: 1.4; }
-    .zero-tagline    { font-size: 13px; color: var(--gold); font-weight: 700; text-align: center; line-height: 1.6; letter-spacing: .02em; }
+    .zero-item-label { font-size: 13px; color: rgba(255,255,255,0.8); text-align: center; line-height: 1.4; }
+    .zero-tagline    { font-size: 14px; color: var(--gold); font-weight: 700; text-align: center; line-height: 1.6; letter-spacing: .02em; }
 
-    /* ── Plans wrap ── */
-    .scroll-hint { font-size: 13px; color: var(--dim); text-align: center; margin-bottom: 12px; }
+    /* ── Plans scroll ── */
+    .scroll-hint { font-size: 14px; color: var(--dim); text-align: center; margin-bottom: 12px; }
     .plans-wrap {
-      margin: 0 -20px;
-      padding: 0 20px;
-      padding-right: 52px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      display: flex;
-      gap: 14px;
-      scrollbar-width: none;
+      margin: 0 -20px; padding: 0 20px; padding-right: 52px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; display: flex; gap: 14px; scrollbar-width: none;
     }
     .plans-wrap::-webkit-scrollbar { display: none; }
 
     /* ── Plan card ── */
     .plan {
-      background: var(--card);
-      border: 1.5px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      flex: 0 0 calc(100vw - 68px);
-      scroll-snap-align: start;
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+      flex: 0 0 calc(100vw - 68px); scroll-snap-align: start;
     }
-    .plan.best { border-color: var(--gold); }
-    .plan-head { padding: 16px 18px 13px; border-bottom: 1px solid var(--border); }
-    .plan.best .plan-head { background: rgba(204,153,1,0.07); }
-    .plan-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); border: 1.5px solid var(--gold); padding: 3px 8px; margin-bottom: 8px; }
-    .plan-name  { font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: 700; color: var(--dark); line-height: 1.45; margin-bottom: 4px; }
-    .plan-desc  { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .plan.best { border-color: var(--gold); border-width: 2px; box-shadow: 0 8px 32px rgba(204,153,1,0.22); }
 
-    /* ── Plan rows ── */
+    /* Card head */
+    .plan-head { padding: 16px 18px 14px; border-bottom: 1px solid var(--border); }
+    .plan.best .plan-head { background: rgba(204,153,1,0.07); }
+    .plan-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .08em; color: var(--gold); border: 1.5px solid var(--gold); padding: 3px 8px; margin-bottom: 10px; }
+    .plan-badge.neutral { color: var(--dim); border-color: var(--border); font-weight: 500; letter-spacing: .04em; }
+    .plan-name { font-family: 'Noto Serif TC', serif; font-size: 17px; font-weight: 700; color: var(--dark); line-height: 1.45; margin-bottom: 6px; }
+    .plan-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* Rows */
     .plan-rows { padding: 0 18px; }
     .row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 50px;
-      padding: 9px 0;
-      font-size: 15px;
-      border-bottom: 1px solid var(--border);
-      gap: 6px;
+      display: flex; justify-content: space-between; align-items: center;
+      min-height: 54px; padding: 10px 0; font-size: 15px;
+      border-bottom: 1px solid var(--border); gap: 6px;
     }
     .plan-rows .row:last-of-type { border-bottom: none; }
-    .row-label { color: var(--muted); flex: 1; font-size: 13px; line-height: 1.4; }
+    .row-label { color: var(--muted); flex: 1; font-size: 14px; line-height: 1.4; }
     .row-val   { font-weight: 600; color: var(--ink); white-space: nowrap; text-align: right; }
     .row-val.minus { color: var(--minus); }
     .row-val.zero  { color: var(--gold); font-weight: 800; }
-    .row-val.na    { color: var(--dim); font-weight: 400; font-size: 13px; }
+    .row-val.na    { color: var(--dim); font-weight: 400; font-size: 14px; }
 
-    /* health row (taller for Plan C 2-line value) */
-    .row.health-row { min-height: 64px; }
-    .health-val-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
-    .health-original { font-size: 12px; color: var(--dim); text-decoration: line-through; }
+    /* Tax icon */
+    .tax-icon-wrap { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+    .tax-icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+    /* Health row */
+    .health-inline   { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .health-original { font-size: 15px; font-weight: 600; color: var(--minus); text-decoration: line-through; }
+    .health-arrow    { font-size: 13px; color: var(--dim); }
     .health-zero     { font-size: 15px; font-weight: 800; color: var(--gold); }
-    .health-note     { font-size: 11px; color: var(--dim); }
 
-    /* formula expansion */
-    /* saving strikethrough */
-    .saving-orig { text-decoration: line-through; color: var(--dim); font-size: 13px; font-weight: 400; margin-right: 4px; }
-
-    .formula-detail { border-top: 1px dashed var(--border); }
-    .formula-detail summary {
-      padding: 9px 18px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--gold);
-      cursor: pointer;
-      list-style: none;
-      user-select: none;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .formula-detail summary::-webkit-details-marker { display: none; }
-    .formula-arrow { font-size: 9px; transition: transform .2s; display: inline-block; }
-    .formula-detail[open] .formula-arrow { transform: rotate(90deg); }
-    .formula-box {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.9;
-      padding: 4px 18px 16px;
-      border-top: 1px solid rgba(0,0,0,0.06);
-    }
-    .formula-box b { color: var(--ink); }
-    .formula-box .formula-result { font-size: 13px; font-weight: 700; color: var(--dark); margin-top: 4px; }
-
-    /* ── Plan result ── */
-    .plan-result { background: var(--bg); padding: 15px 18px; }
+    /* Plan result */
+    .plan-result { background: var(--bg); padding: 16px 18px; }
     .plan.best .plan-result { background: rgba(204,153,1,0.07); }
-    .result-tag  { font-size: 11px; color: var(--dim); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
-    .result-main { font-family: 'Noto Serif TC', serif; font-size: 28px; font-weight: 700; color: var(--dark); letter-spacing: -.5px; line-height: 1.1; }
-    .plan.best .result-main { color: var(--gold); }
-    .result-sub  { font-size: 14px; color: var(--muted); margin-top: 5px; }
+    .result-tag  { font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .result-main { font-family: 'Noto Serif TC', serif; font-size: 30px; font-weight: 700; color: var(--dark); letter-spacing: -.5px; line-height: 1.1; }
+    .plan.best .result-main { color: var(--gold); font-size: 34px; }
 
-    .manage-note { padding: 12px 18px; border-top: 1px solid var(--border); font-size: 12px; color: var(--dim); line-height: 1.65; }
-    .cond-note   { padding: 10px 18px; border-top: 1px solid var(--border); font-size: 11px; color: var(--dim); line-height: 1.65; }
-    .incl-list   { padding: 14px 18px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
-    .incl-item   { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--muted); }
-    .incl-check  {
-      width: 18px; height: 18px; min-width: 18px;
-      background: var(--gold);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 11px; color: var(--dark); font-weight: 800;
-      margin-top: 1px;
+    /* ── Formula toggle ── */
+    .formula-toggle {
+      display: flex; width: 100%;
+      justify-content: space-between; align-items: center;
+      padding: 14px 18px; border: none; border-top: 2px solid var(--border);
+      background: var(--bg); cursor: pointer;
+      font-family: 'Noto Sans TC', sans-serif;
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      text-align: left; transition: background 0.15s;
+      -webkit-tap-highlight-color: transparent;
     }
+    .formula-toggle:active { background: #D9D7D3; }
+    .formula-arrow {
+      width: 26px; height: 26px; min-width: 26px;
+      border-radius: 50%; background: var(--dark); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; transition: transform 0.25s;
+    }
+    .formula-panel { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .formula-panel-inner {
+      padding: 16px 18px 20px; font-size: 12px;
+      color: var(--muted); line-height: 2;
+      border-top: 1px solid var(--border);
+    }
+    .formula-panel-inner b { color: var(--ink); }
+    .formula-result { font-size: 13px; font-weight: 700; color: var(--dark); margin-top: 4px; display: block; }
+    .formula-rule { background: var(--bg); border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; font-size: 11px; color: var(--muted); line-height: 1.8; }
+    .plans-wrap.expanded .formula-panel { max-height: 600px; }
+    .plans-wrap.expanded .formula-arrow { transform: rotate(180deg); background: var(--gold); }
+    .plans-wrap.expanded .formula-toggle { color: var(--ink); }
 
     /* ── Dots ── */
     .dots { display: flex; justify-content: center; gap: 7px; margin-top: 14px; }
@@ -280,38 +236,67 @@
     .dot.active { background: var(--dark); }
 
     /* ── Conclusion ── */
-    .conclusion { background: var(--dark); border-radius: 14px; padding: 22px 20px; }
-    .conc-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; color: var(--gold); line-height: 1.5; margin-bottom: 16px; }
-    .conc-pills { display: flex; gap: 12px; margin-bottom: 20px; }
-    .conc-pill  { flex: 1; background: rgba(204,153,1,0.12); border: 1px solid rgba(204,153,1,0.35); border-radius: 10px; padding: 12px 14px; }
-    .conc-pill-label { font-size: 11px; color: rgba(255,255,255,0.55); margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+    .conclusion { background: var(--dark); border-radius: 14px; padding: 24px 20px; }
+    .conc-title { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700; color: var(--gold); line-height: 1.5; margin-bottom: 18px; }
+    .conc-pills { display: flex; gap: 12px; }
+    .conc-pill  { flex: 1; background: rgba(204,153,1,0.12); border: 1px solid rgba(204,153,1,0.35); border-radius: 10px; padding: 14px; }
+    .conc-pill-label { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 5px; }
     .conc-pill-val   { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700; color: var(--gold); line-height: 1.2; }
-    .conc-pill-sub   { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; line-height: 1.4; }
-    .conc-sec-label  { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 10px; margin-top: 18px; }
-    .conc-savings    { display: flex; flex-direction: column; gap: 8px; }
+    .conc-pill-sub   { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; line-height: 1.4; }
+    .conc-hero { text-align: center; padding: 24px 0 20px; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); margin: 20px 0; }
+    .conc-hero-label  { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 10px; }
+    .conc-hero-amount { font-family: 'Noto Serif TC', serif; font-size: 42px; font-weight: 700; color: var(--gold); line-height: 1; letter-spacing: -1px; }
+    .conc-hero-sub    { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 10px; }
+    .conc-sec-label  { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.7); margin-bottom: 12px; }
+    .conc-savings    { display: flex; flex-direction: column; gap: 11px; }
     .conc-row        { display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
-    .conc-row-label  { color: rgba(255,255,255,0.72); }
-    .conc-row-val    { font-weight: 700; color: var(--gold); }
-    .conc-divider    { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 16px 0; }
-    .conc-freedoms   { display: flex; flex-direction: column; gap: 9px; }
-    .conc-free-item  { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgba(255,255,255,0.75); }
-    .conc-dot        { width: 6px; height: 6px; min-width: 6px; border-radius: 50%; background: var(--gold); margin-top: 9px; }
+    .conc-row-label  { color: rgba(255,255,255,0.75); }
+    .conc-row-val    { font-weight: 700; color: var(--gold); white-space: nowrap; }
+    .conc-divider    { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 22px 0; }
+    .conc-incl { display: flex; flex-direction: column; gap: 12px; }
+    .conc-incl-item { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.5; }
+    .conc-check {
+      width: 22px; height: 22px; min-width: 22px;
+      background: var(--gold); display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: var(--dark); font-weight: 800;
+      border-radius: 2px; margin-top: 1px;
+    }
+    .conc-burden { display: flex; flex-direction: column; gap: 10px; }
+    .conc-burden-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+    .conc-burden-dot { width: 4px; height: 4px; min-width: 4px; border-radius: 50%; background: rgba(255,255,255,0.35); margin-top: 9px; }
 
     /* ── CTA ── */
     .cta-wrap { padding: 24px 20px 0; }
     .cta-btn {
-      display: block; width: 100%;
-      background: var(--dark); color: #fff;
-      text-align: center; text-decoration: none;
-      padding: 18px 20px;
-      font-family: 'Noto Serif TC', serif;
-      font-size: 18px; font-weight: 700; line-height: 1.4;
+      display: block; width: 100%; background: var(--dark); color: #fff;
+      text-align: center; text-decoration: none; padding: 18px 20px;
+      font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; line-height: 1.4;
     }
     .cta-btn:hover { background: #162a4a; }
     .cta-sub { text-align: center; font-size: 13px; color: var(--dim); margin-top: 10px; }
 
     /* ── Legal ── */
-    .legal { font-size: 11px; color: var(--dim); text-align: center; padding: 22px 20px 0; line-height: 1.75; }
+    .legal { font-size: 12px; color: var(--dim); text-align: center; padding: 22px 20px 0; line-height: 1.75; }
+
+    /* ── Result Bar ── */
+    .result-bar-section { padding: 20px 20px 0; }
+    .result-bar-headline { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; color: var(--dark); line-height: 1.55; margin-bottom: 16px; text-align: center; }
+    .result-bar-headline strong { color: var(--gold); display: block; }
+    .result-bar-metrics { background: var(--dark); border-radius: 14px; display: flex; overflow: hidden; }
+    .result-metric { flex: 1; padding: 20px 14px; text-align: center; }
+    .result-metric-divider { width: 1px; background: rgba(255,255,255,0.12); margin: 14px 0; }
+    .result-metric-label { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.55); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+    .result-metric-val { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--gold); line-height: 1; letter-spacing: -.5px; margin-bottom: 7px; }
+    .result-metric-sub { font-size: 12px; color: rgba(255,255,255,0.5); }
+
+    /* ── Zero Block v2 ── */
+    .zero-block-v2 { background: var(--dark); border-radius: 14px; padding: 28px 20px 24px; }
+    .zero-block-v2-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; color: var(--gold); text-align: center; margin-bottom: 24px; line-height: 1.5; }
+    .zero-items-v2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin-bottom: 22px; }
+    .zero-item-v2 { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .zero-big { font-family: 'DM Serif Display', serif; font-size: 72px; color: var(--gold); line-height: 0.85; letter-spacing: -2px; }
+    .zero-item-v2-label { font-size: 14px; color: rgba(255,255,255,0.8); font-weight: 500; }
+    .zero-closing { font-size: 14px; color: rgba(255,255,255,0.65); text-align: center; line-height: 1.7; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 18px; }
 
     /* ── Desktop ── */
     @media (min-width: 800px) {
@@ -323,7 +308,11 @@
       .scroll-hint, .dots { display: none; }
       .plans-wrap { margin: 0; padding: 0; overflow-x: visible; scroll-snap-type: none; gap: 16px; }
       .plan { flex: 1; min-width: 0; }
+      .formula-toggle:hover { background: #D9D7D3; }
       .conc-pill-val { font-size: 22px; }
+      .result-bar-section { padding-left: 40px; padding-right: 40px; }
+      .result-bar-headline { font-size: 22px; }
+      .result-metric-val { font-size: 32px; }
     }
   </style>
 </head>
@@ -338,82 +327,266 @@
 <!-- Page Head -->
 <div class="page-head">
   <div class="page-head-eyebrow">出租收益試算工具</div>
-  <h1>出租您的房屋，<br>每年實際收到多少？</h1>
-  <p>填入您的條件，即時比較三種出租方式的稅後到手金額。</p>
+  <h1>合法出租，<br>稅賦比你想的少</h1>
+  <p>填入您的房屋條件，算出租逸包租代管後的真實數字。</p>
 </div>
 
 <!-- Inputs -->
 <div class="section">
   <div class="section-label">您的條件</div>
-  <div class="input-card">
+  <div class="cards">
 
-    <div class="input-row">
-      <div>
-        <div class="input-row-label">月租金</div>
-      </div>
-      <div class="stepper">
-        <button class="step-btn" id="rent-minus">−</button>
-        <div class="step-display" style="min-width:110px;"><span id="rent-val">30,000</span> 元</div>
-        <button class="step-btn" id="rent-plus">+</button>
+    <!-- 月租金：滑桿 + 微調 -->
+    <div class="rent-card">
+      <div class="rent-header"><div class="rent-label">月租金</div></div>
+      <div class="rent-body">
+        <div class="rent-value-row">
+          <button class="fine-btn" id="rent-minus">−</button>
+          <div class="rent-num-wrap">
+            <span class="rent-num" id="rent-val">30,000</span>
+            <span class="rent-unit">元 / 月</span>
+          </div>
+          <button class="fine-btn" id="rent-plus">+</button>
+        </div>
+        <input type="range" id="rent-slider" min="5000" max="200000" step="1000" value="30000">
+        <div class="range-hints"><span>5,000</span><span>200,000</span></div>
       </div>
     </div>
 
-    <div class="input-row">
-      <div>
-        <div class="input-row-label">個人所得稅率</div>
-        <div class="input-row-sub">綜合所得稅邊際稅率</div>
+    <!-- 換租年限 + 空租期 -->
+    <div class="grid-2">
+      <div class="tag-card">
+        <div class="tag-label">幾年換租一次</div>
+        <div class="tag-control">
+          <button class="tag-btn" id="tenancyYears-minus">−</button>
+          <div class="tag-val" id="tenancyYears-val">2<span class="unit">年</span></div>
+          <button class="tag-btn" id="tenancyYears-plus">+</button>
+        </div>
       </div>
-      <div class="stepper">
-        <button class="step-btn" id="taxRate-minus">−</button>
-        <div class="step-display"><span id="taxRate-val">20%</span></div>
-        <button class="step-btn" id="taxRate-plus">+</button>
-      </div>
-    </div>
-
-    <div class="input-row">
-      <div>
-        <div class="input-row-label">每年修繕費用</div>
-        <div class="input-row-sub">含小修繕、耗材等估算</div>
-      </div>
-      <div class="stepper">
-        <button class="step-btn" id="repair-minus">−</button>
-        <div class="step-display" style="min-width:110px;"><span id="repair-val">30,000</span> 元</div>
-        <button class="step-btn" id="repair-plus">+</button>
+      <div class="tag-card">
+        <div class="tag-label">每次空租期</div>
+        <div class="tag-control">
+          <button class="tag-btn" id="vacancyMonths-minus">−</button>
+          <div class="tag-val" id="vacancyMonths-val">1.5<span class="unit">月</span></div>
+          <button class="tag-btn" id="vacancyMonths-plus">+</button>
+        </div>
       </div>
     </div>
 
-    <div class="input-row">
-      <div>
-        <div class="input-row-label">平均幾年換租一次</div>
+    <!-- 修繕費 + 房仲費 -->
+    <div class="grid-2">
+      <div class="tag-card">
+        <div class="tag-label">每年修繕費用</div>
+        <div class="tag-sublabel">不含房屋結構性損壞</div>
+        <div class="tag-control">
+          <button class="tag-btn" id="repair-minus">−</button>
+          <div class="tag-val" id="repair-val">3<span class="unit">萬</span></div>
+          <button class="tag-btn" id="repair-plus">+</button>
+        </div>
       </div>
-      <div class="stepper">
-        <button class="step-btn" id="tenancyYears-minus">−</button>
-        <div class="step-display"><span id="tenancyYears-val">2</span> 年</div>
-        <button class="step-btn" id="tenancyYears-plus">+</button>
-      </div>
-    </div>
-
-    <div class="input-row">
-      <div>
-        <div class="input-row-label">每次招租空租期</div>
-      </div>
-      <div class="stepper">
-        <button class="step-btn" id="vacancyMonths-minus">−</button>
-        <div class="step-display"><span id="vacancyMonths-val">1.5</span> 個月</div>
-        <button class="step-btn" id="vacancyMonths-plus">+</button>
+      <div class="tag-card">
+        <div class="tag-label">每次房仲費</div>
+        <div class="tag-sublabel">服務費固定一個月租金</div>
+        <div class="tag-broker-val" id="broker-display">30,000<span class="unit">元</span></div>
       </div>
     </div>
 
-    <div class="input-row">
-      <div>
-        <div class="input-row-label">每次仲介費</div>
+    <!-- 個人綜所稅率：離散滑桿 -->
+    <div class="tax-card">
+      <div class="tax-header">
+        <div class="tax-label">個人綜所稅率</div>
+        <div class="tax-sublabel">稅率因人而異，請選擇您的邊際稅率</div>
       </div>
-      <span class="input-fixed">1 個月</span>
+      <div class="tax-body">
+        <div class="tax-value-row">
+          <span class="tax-num" id="taxRate-val">20</span><span class="tax-unit">%</span>
+        </div>
+        <input type="range" id="tax-slider" min="0" max="4" step="1" value="2">
+        <div class="tax-ticks">
+          <span class="tick" data-i="0">5%</span>
+          <span class="tick" data-i="1">12%</span>
+          <span class="tick active" data-i="2">20%</span>
+          <span class="tick" data-i="3">30%</span>
+          <span class="tick" data-i="4">40%</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Result Bar -->
+<div class="result-bar-section">
+  <div class="result-bar-headline">同一間房，換個方式出租<strong>稅金竟然差了這麼多</strong></div>
+  <div class="result-bar-metrics">
+    <div class="result-metric">
+      <div class="result-metric-label">稅務更優惠</div>
+      <div class="result-metric-val" id="result-tax-saving">11,568 元</div>
+      <div class="result-metric-sub">少繳所得稅</div>
+    </div>
+    <div class="result-metric-divider"></div>
+    <div class="result-metric">
+      <div class="result-metric-label">翻新修繕免出錢</div>
+      <div class="result-metric-val" id="result-total-diff">NT$ 94,068</div>
+      <div class="result-metric-sub">每年多進口袋</div>
+    </div>
+  </div>
+</div>
+
+<!-- Plans -->
+<div class="section">
+  <div class="section-label">三種出租方式比較</div>
+  <p class="scroll-hint">← 左右滑動比較 →</p>
+
+  <div class="plans-wrap" id="plansWrap">
+
+    <!-- 一般直租 -->
+    <div class="plan">
+      <div class="plan-head">
+        <div class="plan-badge neutral">一般自行出租</div>
+        <div class="plan-name">自己找租客，每月自己管</div>
+        <div class="plan-desc">難保壞租客｜無稅務優惠｜仲介費修繕費自己出</div>
+      </div>
+      <div class="plan-rows">
+        <div class="row">
+          <span class="row-label">年租金收入</span>
+          <span class="row-val" id="A-income">337,500 元</span>
+        </div>
+        <div class="row">
+          <span class="row-label">租金收入所得稅</span>
+          <span class="row-val" id="A-tax">41,040 元</span>
+        </div>
+        <div class="row">
+          <span class="row-label">二代健保</span>
+          <span class="row-val na">— 不適用</span>
+        </div>
+        <div class="row">
+          <span class="row-label">仲介費（每次換租）</span>
+          <span class="row-val minus" id="A-broker">−30,000 元</span>
+        </div>
+        <div class="row">
+          <span class="row-label">修繕費</span>
+          <span class="row-val minus" id="A-repair">−30,000 元</span>
+        </div>
+      </div>
+      <div class="plan-result">
+        <div class="result-tag">年稅後實收</div>
+        <div class="result-main" id="A-net">236,460 元</div>
+      </div>
+      <button class="formula-toggle" onclick="toggleFormula()">
+        <span>查看租金收入計算公式</span>
+        <span class="formula-arrow">▼</span>
+      </button>
+      <div class="formula-panel">
+        <div class="formula-panel-inner" id="A-formula"></div>
+      </div>
+    </div>
+
+    <!-- 包租代管（最佳・中間）-->
+    <div class="plan best">
+      <div class="plan-head">
+        <div class="plan-badge">最多屋主選擇</div>
+        <div class="plan-name">交給租逸，每月穩收租</div>
+        <div class="plan-desc">保底月租金｜全年 12 個月保證入帳｜費用全包</div>
+      </div>
+      <div class="plan-rows">
+        <div class="row">
+          <span class="row-label">年租金收入</span>
+          <span class="row-val" id="C-income">360,000 元</span>
+        </div>
+        <div class="row">
+          <span class="row-label">租金收入所得稅</span>
+          <div class="tax-icon-wrap">
+            <span class="row-val" id="C-tax">29,472 元</span>
+            <svg id="C-tax-chip" class="tax-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="8" r="7.5" fill="#CC9901"/>
+              <polyline points="4.5,8.5 6.8,11 11.5,5.5" fill="none" stroke="#0B1931" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="row">
+          <span class="row-label">二代健保</span>
+          <div class="health-inline">
+            <span class="health-original" id="C-health-original">−7,596 元</span>
+            <span class="health-arrow">→</span>
+            <span class="health-zero">0 元，租逸負擔</span>
+          </div>
+        </div>
+        <div class="row">
+          <span class="row-label">仲介費</span>
+          <span class="row-val zero">0 元</span>
+        </div>
+        <div class="row">
+          <span class="row-label">修繕費</span>
+          <span class="row-val zero">0 元</span>
+        </div>
+      </div>
+      <div class="plan-result">
+        <div class="result-tag">年稅後實收</div>
+        <div class="result-main" id="C-net">330,528 元</div>
+      </div>
+      <button class="formula-toggle" onclick="toggleFormula()">
+        <span>查看租金收入計算公式</span>
+        <span class="formula-arrow">▼</span>
+      </button>
+      <div class="formula-panel">
+        <div class="formula-panel-inner" id="C-formula"></div>
+      </div>
+    </div>
+
+    <!-- 公益出租人 -->
+    <div class="plan">
+      <div class="plan-head">
+        <div class="plan-badge neutral">公益出租人資格</div>
+        <div class="plan-name">公益出租人，符合資格房客自己找</div>
+        <div class="plan-desc">享租稅優惠｜不符合優惠就歸零｜仲介費修繕費自己出</div>
+      </div>
+      <div class="plan-rows">
+        <div class="row">
+          <span class="row-label">年租金收入</span>
+          <span class="row-val" id="B-income">337,500 元</span>
+        </div>
+        <div class="row">
+          <span class="row-label">租金收入所得稅</span>
+          <span class="row-val" id="B-tax">20,520 元</span>
+        </div>
+        <div class="row">
+          <span class="row-label">二代健保</span>
+          <span class="row-val na">— 不適用</span>
+        </div>
+        <div class="row">
+          <span class="row-label">仲介費（每次換租）</span>
+          <span class="row-val minus" id="B-broker">−30,000 元</span>
+        </div>
+        <div class="row">
+          <span class="row-label">修繕費</span>
+          <span class="row-val minus" id="B-repair">−30,000 元</span>
+        </div>
+      </div>
+      <div class="plan-result">
+        <div class="result-tag">年稅後實收</div>
+        <div class="result-main" id="B-net">256,980 元</div>
+      </div>
+      <button class="formula-toggle" onclick="toggleFormula()">
+        <span>查看租金收入計算公式</span>
+        <span class="formula-arrow">▼</span>
+      </button>
+      <div class="formula-panel">
+        <div class="formula-panel-inner" id="B-formula"></div>
+      </div>
     </div>
 
   </div>
 
-  <!-- Cost box -->
+  <div class="dots" id="dots">
+    <div class="dot"></div>
+    <div class="dot active"></div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<!-- Cost Summary -->
+<div class="section">
   <div class="cost-box">
     <div class="cost-box-title">自行出租時，每次換租預計支出</div>
     <div class="cost-box-market" id="cost-market-note">以您設定條件計算</div>
@@ -435,186 +608,31 @@
       <span id="cb-annual" style="color:var(--minus);">37,500 元</span>
     </div>
   </div>
-
-  <!-- 4-Zero block -->
-  <div class="zero-block">
-    <div class="zero-items">
-      <div class="zero-item">
-        <div class="zero-icon">0</div>
-        <div class="zero-item-label">仲介費</div>
-      </div>
-      <div class="zero-item">
-        <div class="zero-icon">0</div>
-        <div class="zero-item-label">空租期</div>
-      </div>
-      <div class="zero-item">
-        <div class="zero-icon">0</div>
-        <div class="zero-item-label">修繕費</div>
-      </div>
-      <div class="zero-item">
-        <div class="zero-icon">0</div>
-        <div class="zero-item-label">二代健保費</div>
-      </div>
-    </div>
-    <div class="zero-tagline">選擇與租逸合作的屋主，全部不用擔心</div>
-  </div>
 </div>
 
-<!-- Plans -->
+<!-- 四大零負擔 -->
 <div class="section">
-  <div class="section-label">三種出租方式比較</div>
-  <p class="scroll-hint">← 左右滑動比較 →</p>
-
-  <div class="plans-wrap" id="plansWrap">
-
-    <!-- 包租代管（第一張，最佳） -->
-    <div class="plan best">
-      <div class="plan-head">
-        <div class="plan-badge">最多屋主選擇</div>
-        <div class="plan-name">交給租逸，全程不介入</div>
-        <div class="plan-desc">保底月租市場行情 90%・全年 12 個月保證入帳・二代健保由租逸代出</div>
+  <div class="zero-block-v2">
+    <div class="zero-block-v2-title">四大零負擔，租逸來承擔</div>
+    <div class="zero-items-v2">
+      <div class="zero-item-v2">
+        <div class="zero-big">0</div>
+        <div class="zero-item-v2-label">翻新費</div>
       </div>
-      <div class="plan-rows">
-        <div class="row">
-          <span class="row-label">年租金收入</span>
-          <span class="row-val" id="C-income">324,000 元</span>
-        </div>
-        <div class="row">
-          <span class="row-label">所得稅（53% 費用扣除）</span>
-          <span class="row-val minus" id="C-tax">−25,368 元</span>
-        </div>
+      <div class="zero-item-v2">
+        <div class="zero-big">0</div>
+        <div class="zero-item-v2-label">修繕費</div>
       </div>
-      <details class="formula-detail">
-        <summary><span class="formula-arrow">▶</span> 所得稅計算方式</summary>
-        <div class="formula-box" id="C-formula"></div>
-      </details>
-      <div class="plan-rows">
-        <div class="row health-row">
-          <span class="row-label">二代健保</span>
-          <div class="health-val-wrap">
-            <span class="health-original" id="C-health-original">−6,836 元</span>
-            <span class="health-zero">0 元</span>
-            <span class="health-note">由租逸代出</span>
-          </div>
-        </div>
-        <div class="row">
-          <span class="row-label">仲介費</span>
-          <span class="row-val zero">0 元</span>
-        </div>
-        <div class="row">
-          <span class="row-label">修繕費</span>
-          <span class="row-val zero">0 元</span>
-        </div>
+      <div class="zero-item-v2">
+        <div class="zero-big">0</div>
+        <div class="zero-item-v2-label">仲介費</div>
       </div>
-      <div class="plan-result">
-        <div class="result-tag">年稅後到手</div>
-        <div class="result-main" id="C-net">298,632 元</div>
-      </div>
-      <div class="incl-list">
-        <div class="incl-item"><div class="incl-check">✓</div>招租・帶看・換租全程代辦</div>
-        <div class="incl-item"><div class="incl-check">✓</div>修繕由公司協調，不接深夜電話</div>
-        <div class="incl-item"><div class="incl-check">✓</div>稅務申報合法合規，全程包辦</div>
-        <div class="incl-item"><div class="incl-check">✓</div>保底租金，月月入帳，無空租風險</div>
+      <div class="zero-item-v2">
+        <div class="zero-big">0</div>
+        <div class="zero-item-v2-label">空租期</div>
       </div>
     </div>
-
-    <!-- 一般直租 -->
-    <div class="plan">
-      <div class="plan-head">
-        <div class="plan-name">自己找租客，自己管</div>
-        <div class="plan-desc">一般直租・無稅務優惠</div>
-      </div>
-      <div class="plan-rows">
-        <div class="row">
-          <span class="row-label">年租金收入</span>
-          <span class="row-val" id="A-income">337,500 元</span>
-        </div>
-        <div class="row">
-          <span class="row-label">所得稅（43% 費用扣除）</span>
-          <span class="row-val minus" id="A-tax">−38,475 元</span>
-        </div>
-      </div>
-      <details class="formula-detail">
-        <summary><span class="formula-arrow">▶</span> 所得稅計算方式</summary>
-        <div class="formula-box" id="A-formula"></div>
-      </details>
-      <div class="plan-rows">
-        <div class="row health-row">
-          <span class="row-label">二代健保</span>
-          <div class="health-val-wrap">
-            <span class="health-zero" style="color:var(--dim);font-size:13px;font-weight:400;">— 不適用</span>
-            <span class="health-note">&nbsp;</span>
-            <span class="health-note">&nbsp;</span>
-          </div>
-        </div>
-        <div class="row">
-          <span class="row-label">仲介費（年均）</span>
-          <span class="row-val minus" id="A-broker">−15,000 元</span>
-        </div>
-        <div class="row">
-          <span class="row-label">修繕費</span>
-          <span class="row-val minus" id="A-repair">−30,000 元</span>
-        </div>
-      </div>
-      <div class="plan-result">
-        <div class="result-tag">年稅後到手</div>
-        <div class="result-main" id="A-net">254,025 元</div>
-      </div>
-      <div class="manage-note">修繕電話、換租廣告帶看、年底稅務申報——全部自己來，時間成本另計。</div>
-    </div>
-
-    <!-- 公益出租人 -->
-    <div class="plan">
-      <div class="plan-head">
-        <div class="plan-name">找符合補貼資格的租客，自己管</div>
-        <div class="plan-desc">公益出租人・享租稅優惠</div>
-      </div>
-      <div class="plan-rows">
-        <div class="row">
-          <span class="row-label">年租金收入</span>
-          <span class="row-val" id="B-income">337,500 元</span>
-        </div>
-        <div class="row">
-          <span class="row-label">所得稅（前 15,000 免稅）</span>
-          <span class="row-val minus" id="B-tax">−19,238 元</span>
-        </div>
-      </div>
-      <details class="formula-detail">
-        <summary><span class="formula-arrow">▶</span> 所得稅計算方式</summary>
-        <div class="formula-box" id="B-formula"></div>
-      </details>
-      <div class="plan-rows">
-        <div class="row health-row">
-          <span class="row-label">二代健保</span>
-          <div class="health-val-wrap">
-            <span class="health-zero" style="color:var(--dim);font-size:13px;font-weight:400;">— 不適用</span>
-            <span class="health-note">&nbsp;</span>
-            <span class="health-note">&nbsp;</span>
-          </div>
-        </div>
-        <div class="row">
-          <span class="row-label">仲介費（年均）</span>
-          <span class="row-val minus" id="B-broker">−15,000 元</span>
-        </div>
-        <div class="row">
-          <span class="row-label">修繕費</span>
-          <span class="row-val minus" id="B-repair">−30,000 元</span>
-        </div>
-      </div>
-      <div class="plan-result">
-        <div class="result-tag">年稅後到手</div>
-        <div class="result-main" id="B-net">273,262 元</div>
-      </div>
-      <div class="manage-note">修繕電話、換租廣告帶看、年底稅務申報——全部自己來，時間成本另計。</div>
-      <div class="cond-note">⚠️ 每次換租都需重新找到具租金補貼申請資格的租客，不保證能銜接。</div>
-    </div>
-
-  </div>
-
-  <div class="dots" id="dots">
-    <div class="dot active"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+    <div class="zero-closing">上面四項，全由租逸負擔，您只需每月收租。</div>
   </div>
 </div>
 
@@ -625,63 +643,81 @@
 
     <div class="conc-pills">
       <div class="conc-pill">
-        <div class="conc-pill-label">年稅後到手</div>
-        <div class="conc-pill-val" id="conc-net">298,632 元</div>
-        <div class="conc-pill-sub" id="conc-diff-annual">比自行出租多 44,607 元</div>
+        <div class="conc-pill-label">年稅後實收</div>
+        <div class="conc-pill-val" id="conc-net">330,528 元</div>
+        <div class="conc-pill-sub" id="conc-diff-annual">比自行出租多 94,068 元</div>
       </div>
       <div class="conc-pill">
         <div class="conc-pill-label">每月省下</div>
-        <div class="conc-pill-val" id="conc-monthly-save">3,717 元</div>
+        <div class="conc-pill-val" id="conc-monthly-save">7,839 元</div>
         <div class="conc-pill-sub">vs 自行直租</div>
       </div>
     </div>
 
-    <div class="conc-sec-label">省下的費用項目</div>
+    <div class="conc-hero">
+      <div class="conc-hero-label">每年總計省下</div>
+      <div class="conc-hero-amount" id="conc-total-savings">NT$ 94,068</div>
+      <div class="conc-hero-sub">比自行出租多收到的金額</div>
+    </div>
+
+    <div class="conc-sec-label">費用全部由租逸承擔</div>
     <div class="conc-savings">
       <div class="conc-row">
         <span class="conc-row-label">修繕費</span>
-        <span class="conc-row-val"><span class="saving-orig" id="conc-savings-repair">30,000 元</span> 0 元</span>
+        <span class="conc-row-val">省下 <span id="conc-savings-repair">30,000</span> 元 ✓</span>
       </div>
       <div class="conc-row">
-        <span class="conc-row-label">仲介費（年均）</span>
-        <span class="conc-row-val"><span class="saving-orig" id="conc-savings-broker">15,000 元</span> 0 元</span>
+        <span class="conc-row-label">仲介費（每次換租）</span>
+        <span class="conc-row-val">省下 <span id="conc-savings-broker">30,000</span> 元 ✓</span>
       </div>
       <div class="conc-row">
         <span class="conc-row-label">空租損失（年均）</span>
-        <span class="conc-row-val"><span class="saving-orig" id="conc-savings-vacancy">22,500 元</span> 0 元</span>
+        <span class="conc-row-val">省下 <span id="conc-savings-vacancy">22,500</span> 元 ✓</span>
       </div>
       <div class="conc-row">
         <span class="conc-row-label">二代健保費</span>
-        <span class="conc-row-val"><span class="saving-orig" id="conc-savings-health">6,836 元</span> 0 元</span>
+        <span class="conc-row-val">省下 <span id="conc-savings-health">7,596</span> 元 ✓</span>
       </div>
       <div class="conc-row">
-        <span class="conc-row-label">稅務費用扣除</span>
-        <span class="conc-row-val">53%（vs 一般 43%）</span>
+        <span class="conc-row-label">包租代管稅務優惠</span>
+        <span class="conc-row-val">省下 <span id="conc-savings-tax">11,568</span> 元 ✓</span>
       </div>
     </div>
 
     <hr class="conc-divider">
 
-    <div class="conc-sec-label">不用再擔心的事</div>
-    <div class="conc-freedoms">
-      <div class="conc-free-item"><div class="conc-dot"></div>不接深夜修繕電話，公司全程協調</div>
-      <div class="conc-free-item"><div class="conc-dot"></div>不自行招租、刊廣告、安排帶看</div>
-      <div class="conc-free-item"><div class="conc-dot"></div>不辦年底租金所得申報，合法合規</div>
-      <div class="conc-free-item"><div class="conc-dot"></div>不擔心空租期，保底租金每月固定入帳</div>
-      <div class="conc-free-item"><div class="conc-dot"></div>不處理押金糾紛、租約更新與租客退場</div>
+    <div class="conc-sec-label" style="margin-bottom:14px;">選擇租逸，還包括</div>
+    <div class="conc-incl">
+      <div class="conc-incl-item"><div class="conc-check">✓</div>招租・帶看・換租全程代辦</div>
+      <div class="conc-incl-item"><div class="conc-check">✓</div>修繕由公司協調，不接深夜電話</div>
+      <div class="conc-incl-item"><div class="conc-check">✓</div>稅務申報合法合規，全程包辦</div>
+      <div class="conc-incl-item"><div class="conc-check">✓</div>保底租金，月月入帳，無空租風險</div>
     </div>
+
+    <hr class="conc-divider">
+
+    <div class="conc-sec-label" style="margin-bottom:12px;">自行管理，還需要承擔</div>
+    <div class="conc-burden">
+      <div class="conc-burden-item"><div class="conc-burden-dot"></div>修繕協調、深夜緊急電話</div>
+      <div class="conc-burden-item"><div class="conc-burden-dot"></div>招租廣告、帶看安排、合約簽署</div>
+      <div class="conc-burden-item"><div class="conc-burden-dot"></div>年底租金所得稅務申報</div>
+      <div class="conc-burden-item"><div class="conc-burden-dot"></div>每次換租空租期損失風險</div>
+      <div class="conc-burden-item"><div class="conc-burden-dot"></div>公益出租人：每次換租還需重新找到具補貼資格的租客</div>
+    </div>
+
   </div>
 </div>
 
 <!-- CTA -->
 <div class="cta-wrap" id="cta">
-  <a href="#" class="cta-btn">預約免費到府評估 →</a>
+  <a href="https://line.me/ti/p/~ginoboya" class="cta-btn">預約免費到府評估 →</a>
   <p class="cta-sub">不收費・無義務・不需現場決定</p>
 </div>
 
 <p class="legal">
-  本試算依台灣 2026 年現行稅率計算，僅供參考。<br>
-  實際稅負因個人整體所得而異，請洽合格會計師確認。<br>
+  本試算依台灣現行稅法推算，僅供參考，不構成稅務建議。<br>
+  實際稅負因個人整體所得、扣除項目、申報方式不同而有所差異，請諮詢合格會計師確認。<br>
+  租逸不負稅務申報責任，本工具計算結果不得作為申報依據。<br>
   租逸｜合法包租代管業者
 </p>
 
@@ -691,11 +727,20 @@ const S = { rent: 30000, taxRate: 0.20, repair: 30000, tenancyYears: 2, vacancyM
 const BROKER = 1;
 const TAX_OPTIONS = [0.05, 0.12, 0.20, 0.30, 0.40];
 const TAX_LABELS  = ['5%', '12%', '20%', '30%', '40%'];
-let taxIdx = 2; // default 20%
+let taxIdx = 2;
+let formulaOpen = false;
 
 const fmt  = n => Math.round(n).toLocaleString('zh-TW');
 const fmtD = n => n % 1 === 0 ? n.toFixed(0) : n.toFixed(1);
 const $    = id => document.getElementById(id);
+
+// ── Formula toggle ──
+function toggleFormula() {
+  formulaOpen = !formulaOpen;
+  document.getElementById('plansWrap').classList.toggle('expanded', formulaOpen);
+  const label = formulaOpen ? '收起計算公式' : '查看租金收入計算公式';
+  document.querySelectorAll('.formula-toggle span:first-child').forEach(el => el.textContent = label);
+}
 
 // ── Compute ──
 function compute() {
@@ -703,29 +748,28 @@ function compute() {
   const annualVacancy   = vacancyMonths / tenancyYears;
   const monthsWithRent  = 12 - annualVacancy;
   const annualIncome    = rent * monthsWithRent;
-  const brokerAnnual    = rent * BROKER / tenancyYears;
+  const brokerPerSwitch = rent * BROKER;
   const guaranteed      = rent;
 
-  // Cost box
   const perSwitchV  = rent * vacancyMonths;
   const perSwitchB  = rent * BROKER;
   const perSwitch   = perSwitchV + perSwitchB;
   const perSwitchYr = perSwitch / tenancyYears;
 
-  // Plan A – 一般直租
-  const A_income   = annualIncome;
-  const A_taxable  = A_income * 0.57;
-  const A_tax      = A_taxable * taxRate;
-  const A_net      = A_income - A_tax - brokerAnnual - repair;
+  // Plan A – 一般直租（稅按 12 個月計算）
+  const A_income  = annualIncome;
+  const A_taxable = rent * 12 * 0.57;
+  const A_tax     = A_taxable * taxRate;
+  const A_net     = A_income - A_tax - brokerPerSwitch - repair;
 
-  // Plan B – 公益出租人
+  // Plan B – 公益出租人（稅按 12 個月計算）
   const B_income = annualIncome;
   let B_taxMonthly = 0, B_tax = 0;
   if (rent > 15000) {
     B_taxMonthly = (rent - 15000) * 0.57;
-    B_tax = B_taxMonthly * monthsWithRent * taxRate;
+    B_tax = B_taxMonthly * 12 * taxRate;
   }
-  const B_net = B_income - B_tax - brokerAnnual - repair;
+  const B_net = B_income - B_tax - brokerPerSwitch - repair;
 
   // Plan C – 包租代管
   const C_income = guaranteed * 12;
@@ -737,14 +781,14 @@ function compute() {
   }
   const C_tax    = C_taxMonthly * 12 * taxRate;
   const C_health = guaranteed >= 20000 ? guaranteed * 0.0211 * 12 : 0;
-  const C_net    = C_income - C_tax; // 健保租逸代出
+  const C_net    = C_income - C_tax;
 
   const diffAnnual  = C_net - A_net;
   const diffMonthly = diffAnnual / 12;
 
   return {
     perSwitchV, perSwitchB, perSwitch, perSwitchYr,
-    annualVacancy, monthsWithRent, brokerAnnual, guaranteed,
+    annualVacancy, monthsWithRent, brokerPerSwitch, guaranteed,
     A: { income: A_income, taxable: A_taxable, tax: A_tax, net: A_net },
     B: { income: B_income, taxMonthly: B_taxMonthly, tax: B_tax, net: B_net },
     C: { income: C_income, taxMonthly: C_taxMonthly, tax: C_tax, health: C_health, net: C_net },
@@ -755,52 +799,59 @@ function compute() {
 // ── Formulas ──
 function formulaC(d) {
   const g = d.guaranteed, taxPct = (S.taxRate * 100).toFixed(0);
-  let html = `<b>月租金</b>：${fmt(g)} 元<br>`;
-  html += `優惠扣除規則：前 6,000 全免・6,001–20,000 扣除 53%・超過 20,000 回歸 43%<br><br>`;
+  let html = `<div class="formula-rule">・月租 ≤ 6,000 → 全額免稅<br>・月租 6,001–20,000 → 費用扣除 53%，應稅 47%<br>・月租 &gt; 20,000 → 超過部分費用扣除 43%，應稅 57%</div>`;
   if (g <= 6000) {
-    html += `月租 ≤ 6,000 → 全額免稅<br><span class="formula-result">年稅額 = 0 元</span>`;
+    html += `月租 ≤ 6,000 → <b>全額免稅</b><br><span class="formula-result">年稅額 = 0 元</span>`;
   } else if (g <= 20000) {
     const tm = (g - 6000) * 0.47;
-    html += `月應稅所得 = (${fmt(g)} − 6,000) × 47% = ${fmt(tm)} 元<br>`;
-    html += `<span class="formula-result">年稅額 = ${fmt(tm)} × 12 × ${taxPct}% = ${fmt(d.C.tax)} 元</span>`;
+    const annualNet = tm * 12;
+    html += `月應稅所得<br>= (${fmt(g)} − 6,000) × (1 − 53%)<br>= ${fmt(g - 6000)} × 47%<br>= <b>${fmt(tm)} 元</b><br><br>`;
+    html += `年租金收入淨額 = ${fmt(tm)} × 12 個月 = ${fmt(annualNet)} 元<br>`;
+    html += `<span class="formula-result">年稅額 = ${fmt(annualNet)} × ${taxPct}% = ${fmt(d.C.tax)} 元</span>`;
   } else {
-    const part = (g - 20000) * 0.57;
-    html += `月應稅所得 = 6,580 + (${fmt(g)} − 20,000) × 57%<br>`;
-    html += `　　　　　= 6,580 + ${fmt(part)} = ${fmt(d.C.taxMonthly)} 元<br>`;
-    html += `<span class="formula-result">年稅額 = ${fmt(d.C.taxMonthly)} × 12 × ${taxPct}% = ${fmt(d.C.tax)} 元</span>`;
+    const part1 = 14000 * 0.47;
+    const part2 = (g - 20000) * 0.57;
+    const annualNet = d.C.taxMonthly * 12;
+    html += `月應稅所得<br>= (20,000 − 6,000) × (1 − 53%) + (${fmt(g)} − 20,000) × (1 − 43%)<br>`;
+    html += `= 14,000 × 47% + ${fmt(g - 20000)} × 57%<br>= ${fmt(part1)} + ${fmt(part2)}<br>= <b>${fmt(d.C.taxMonthly)} 元</b><br><br>`;
+    html += `年租金收入淨額 = ${fmt(d.C.taxMonthly)} × 12 個月 = ${fmt(annualNet)} 元<br>`;
+    html += `<span class="formula-result">年稅額 = ${fmt(annualNet)} × ${taxPct}% = ${fmt(d.C.tax)} 元</span>`;
   }
   return html;
 }
 
 function formulaA(d) {
   const taxPct = (S.taxRate * 100).toFixed(0);
-  return `一般自行出租費用扣除 43%（應稅所得率 57%）<br><br>` +
-    `年收租 ${fmt(d.A.income)} × 57% = ${fmt(d.A.taxable)} 元<br>` +
-    `<span class="formula-result">年稅額 = ${fmt(d.A.taxable)} × ${taxPct}% = ${fmt(d.A.tax)} 元</span>`;
+  const tm = S.rent * 0.57;
+  const annualNetA = tm * 12;
+  return `<div class="formula-rule">・全額租金費用扣除 43%，應稅 57%</div>` +
+    `月應稅所得<br>= ${fmt(S.rent)} × (1 − 43%)<br>= ${fmt(S.rent)} × 57%<br>= <b>${fmt(tm)} 元</b><br><br>` +
+    `年租金收入淨額 = ${fmt(tm)} × 12 個月 = ${fmt(annualNetA)} 元<br>` +
+    `<span class="formula-result">年稅額 = ${fmt(annualNetA)} × ${taxPct}% = ${fmt(d.A.tax)} 元</span>`;
 }
 
 function formulaB(d) {
   const taxPct = (S.taxRate * 100).toFixed(0);
-  const mwr = fmtD(d.monthsWithRent);
-  let html = `公益出租人優惠：月租前 15,000 全免・超過部分費用扣除 43%<br><br>`;
+  let html = `<div class="formula-rule">・月租 ≤ 15,000 → 全額免稅<br>・月租 &gt; 15,000 → 超過部分費用扣除 43%，應稅 57%</div>`;
   if (S.rent <= 15000) {
-    html += `月租 ≤ 15,000 → <b>全額免稅</b>`;
+    html += `月租 ≤ 15,000 → <b>全額免稅</b><br><span class="formula-result">年稅額 = 0 元</span>`;
   } else {
-    html += `月應稅所得 = (${fmt(S.rent)} − 15,000) × 57% = ${fmt(d.B.taxMonthly)} 元<br>`;
-    html += `<span class="formula-result">年稅額 = ${fmt(d.B.taxMonthly)} × ${mwr} 個月 × ${taxPct}% = ${fmt(d.B.tax)} 元</span>`;
+    const tm = (S.rent - 15000) * 0.57;
+    const annualNetB = tm * 12;
+    html += `月應稅所得<br>= (${fmt(S.rent)} − 15,000) × (1 − 43%)<br>= ${fmt(S.rent - 15000)} × 57%<br>= <b>${fmt(tm)} 元</b><br><br>`;
+    html += `年租金收入淨額 = ${fmt(tm)} × 12 個月 = ${fmt(annualNetB)} 元<br>`;
+    html += `<span class="formula-result">年稅額 = ${fmt(annualNetB)} × ${taxPct}% = ${fmt(d.B.tax)} 元</span>`;
   }
   return html;
 }
 
-// ── Update DOM ──
+// ── Render ──
 function render() {
   const d = compute();
   const ty = fmtD(S.tenancyYears);
   const vm = fmtD(S.vacancyMonths);
-  const mwr = fmtD(d.monthsWithRent);
 
-  // Cost box
-  $('cost-market-note').textContent = `每 ${ty} 年換租・招租期 ${vm} 個月・仲介費 1 個月（台北市慣例）`;
+  $('cost-market-note').textContent = `台北市平均每 ${ty} 年換租一次，空租期 ${vm} 個月，仲介費 1 個月`;
   $('cb-vacancy-months').textContent = vm;
   $('cb-vacancy-cost').textContent   = `${fmt(d.perSwitchV)} 元`;
   $('cb-broker-cost').textContent    = `${fmt(d.perSwitchB)} 元`;
@@ -808,85 +859,122 @@ function render() {
   $('cb-tenancy-years').textContent  = ty;
   $('cb-annual').textContent         = `${fmt(d.perSwitchYr)} 元`;
 
-  // Plan C
-  $('C-income').textContent        = `${fmt(d.C.income)} 元`;
-  $('C-tax').textContent           = `−${fmt(d.C.tax)} 元`;
+  const taxSaving = Math.max(0, d.A.tax - d.C.tax);
+
+  $('C-income').textContent          = `${fmt(d.C.income)} 元`;
+  $('C-tax').textContent             = `${fmt(d.C.tax)} 元`;
+  $('C-tax-chip').style.display      = taxSaving > 0 ? '' : 'none';
   $('C-health-original').textContent = `−${fmt(d.C.health)} 元`;
-  $('C-net').textContent           = `${fmt(d.C.net)} 元`;
-  $('C-formula').innerHTML         = formulaC(d);
+  $('C-net').textContent             = `${fmt(d.C.net)} 元`;
+  $('C-formula').innerHTML           = formulaC(d);
 
-  // Plan A
-  $('A-income').textContent        = `${fmt(d.A.income)} 元`;
-  $('A-tax').textContent           = `−${fmt(d.A.tax)} 元`;
-  $('A-broker').textContent        = `−${fmt(d.brokerAnnual)} 元`;
-  $('A-repair').textContent        = `−${fmt(S.repair)} 元`;
-  $('A-net').textContent           = `${fmt(d.A.net)} 元`;
-  $('A-formula').innerHTML         = formulaA(d);
+  $('A-income').textContent          = `${fmt(d.A.income)} 元`;
+  $('A-tax').textContent             = `${fmt(d.A.tax)} 元`;
+  $('A-broker').textContent          = `−${fmt(d.brokerPerSwitch)} 元`;
+  $('A-repair').textContent          = `−${fmt(S.repair)} 元`;
+  $('A-net').textContent             = `${fmt(d.A.net)} 元`;
+  $('A-formula').innerHTML           = formulaA(d);
 
-  // Plan B
-  $('B-income').textContent        = `${fmt(d.B.income)} 元`;
-  $('B-tax').textContent           = `−${fmt(d.B.tax)} 元`;
-  $('B-broker').textContent        = `−${fmt(d.brokerAnnual)} 元`;
-  $('B-repair').textContent        = `−${fmt(S.repair)} 元`;
-  $('B-net').textContent           = `${fmt(d.B.net)} 元`;
-  $('B-formula').innerHTML         = formulaB(d);
+  $('B-income').textContent          = `${fmt(d.B.income)} 元`;
+  $('B-tax').textContent             = `${fmt(d.B.tax)} 元`;
+  $('B-broker').textContent          = `−${fmt(d.brokerPerSwitch)} 元`;
+  $('B-repair').textContent          = `−${fmt(S.repair)} 元`;
+  $('B-net').textContent             = `${fmt(d.B.net)} 元`;
+  $('B-formula').innerHTML           = formulaB(d);
 
-  // Conclusion
-  $('conc-net').textContent          = `${fmt(d.C.net)} 元`;
-  $('conc-diff-annual').textContent  = `比自行出租多 ${fmt(d.diff.annual)} 元`;
-  $('conc-monthly-save').textContent = `${fmt(d.diff.monthly)} 元`;
-  $('conc-savings-repair').textContent  = `${fmt(S.repair)} 元`;
-  $('conc-savings-broker').textContent  = `${fmt(d.brokerAnnual)} 元`;
-  $('conc-savings-vacancy').textContent = `${fmt(S.rent * d.annualVacancy)} 元`;
-  $('conc-savings-health').textContent  = `${fmt(d.C.health)} 元`;
+  $('conc-net').textContent             = `${fmt(d.C.net)} 元`;
+  $('conc-diff-annual').textContent     = `比自行出租多 ${fmt(d.diff.annual)} 元`;
+  $('conc-monthly-save').textContent    = `${fmt(d.diff.monthly)} 元`;
+  $('conc-total-savings').textContent   = `NT$ ${fmt(d.diff.annual)}`;
+  $('conc-savings-repair').textContent  = fmt(S.repair);
+  $('conc-savings-broker').textContent  = fmt(d.brokerPerSwitch);
+  $('conc-savings-vacancy').textContent = fmt(Math.round(S.rent * d.annualVacancy));
+  $('conc-savings-health').textContent  = fmt(d.C.health);
+  $('conc-savings-tax').textContent     = fmt(taxSaving);
+
+  $('result-tax-saving').textContent   = `${fmt(taxSaving)} 元`;
+  $('result-total-diff').textContent   = `NT$ ${fmt(d.diff.annual)}`;
 }
 
-// ── Stepper ──
-function makeStepper(id, min, max, step) {
-  const valEl = $(id + '-val');
-  let val = parseFloat(valEl.textContent);
-  function update() {
-    val = Math.round(val * 10) / 10;
-    valEl.textContent = fmtD(val);
-    S[id] = val;
-    render();
-  }
-  $(id + '-minus').addEventListener('click', () => { if (val > min) { val -= step; update(); } });
-  $(id + '-plus' ).addEventListener('click', () => { if (val < max) { val += step; update(); } });
+// ── Slider fill ──
+function setFill(slider) {
+  const pct = ((+slider.value - +slider.min) / (+slider.max - +slider.min) * 100).toFixed(1) + '%';
+  slider.style.setProperty('--pct', pct);
 }
 
 // ── Init ──
 document.addEventListener('DOMContentLoaded', () => {
-  makeStepper('tenancyYears',  0.5, 10, 0.5);
-  makeStepper('vacancyMonths', 0,   6,  0.5);
 
-  // 月租金 stepper (step 1,000)
+  /* 月租金：滑桿 + 微調按鈕 */
+  const rentSlider    = $('rent-slider');
+  const rentDisplay   = $('rent-val');
+  const brokerDisplay = $('broker-display');
+
+  function syncBroker() {
+    brokerDisplay.innerHTML = S.rent.toLocaleString('zh-TW') + '<span class="unit">元</span>';
+  }
+  function updateRent(val) {
+    S.rent = val;
+    rentDisplay.textContent = val.toLocaleString('zh-TW');
+    rentSlider.value = val;
+    setFill(rentSlider);
+    syncBroker();
+    render();
+  }
+  rentSlider.addEventListener('input', () => updateRent(+rentSlider.value));
+  $('rent-minus').addEventListener('click', () => { if (S.rent > 5000)   updateRent(S.rent - 1000); });
+  $('rent-plus' ).addEventListener('click', () => { if (S.rent < 200000) updateRent(S.rent + 1000); });
+  setFill(rentSlider);
+  syncBroker();
+
+  /* 幾年換租一次 */
   ;(function() {
-    const valEl = $('rent-val');
-    let val = 30000;
-    function upd() { valEl.textContent = val.toLocaleString('zh-TW'); S.rent = val; render(); }
-    $('rent-minus').addEventListener('click', () => { if (val > 5000)   { val -= 1000; upd(); } });
-    $('rent-plus' ).addEventListener('click', () => { if (val < 200000) { val += 1000; upd(); } });
+    const el = $('tenancyYears-val');
+    function upd() { el.innerHTML = fmtD(S.tenancyYears) + '<span class="unit">年</span>'; render(); }
+    $('tenancyYears-minus').addEventListener('click', () => { if (S.tenancyYears > 0.5) { S.tenancyYears -= 0.5; upd(); } });
+    $('tenancyYears-plus' ).addEventListener('click', () => { if (S.tenancyYears < 10)  { S.tenancyYears += 0.5; upd(); } });
   })();
 
-  // 所得稅率 stepper (cycles through TAX_OPTIONS)
+  /* 每次空租期 */
   ;(function() {
-    const valEl = $('taxRate-val');
-    function upd() { valEl.textContent = TAX_LABELS[taxIdx]; S.taxRate = TAX_OPTIONS[taxIdx]; render(); }
-    $('taxRate-minus').addEventListener('click', () => { if (taxIdx > 0)                    { taxIdx--; upd(); } });
-    $('taxRate-plus' ).addEventListener('click', () => { if (taxIdx < TAX_OPTIONS.length-1) { taxIdx++; upd(); } });
+    const el = $('vacancyMonths-val');
+    function upd() { el.innerHTML = fmtD(S.vacancyMonths) + '<span class="unit">月</span>'; render(); }
+    $('vacancyMonths-minus').addEventListener('click', () => { if (S.vacancyMonths > 0) { S.vacancyMonths -= 0.5; upd(); } });
+    $('vacancyMonths-plus' ).addEventListener('click', () => { if (S.vacancyMonths < 6)  { S.vacancyMonths += 0.5; upd(); } });
   })();
 
-  // 修繕費 stepper (step 5,000)
+  /* 每年修繕費用（萬元顯示）*/
   ;(function() {
-    const valEl = $('repair-val');
-    let val = 30000;
-    function upd() { valEl.textContent = val.toLocaleString('zh-TW'); S.repair = val; render(); }
-    $('repair-minus').addEventListener('click', () => { if (val > 0)      { val -= 5000; upd(); } });
-    $('repair-plus' ).addEventListener('click', () => { if (val < 300000) { val += 5000; upd(); } });
+    const el = $('repair-val');
+    function upd() {
+      const wan = S.repair / 10000;
+      el.innerHTML = (wan % 1 === 0 ? wan.toFixed(0) : wan.toFixed(1)) + '<span class="unit">萬</span>';
+      render();
+    }
+    $('repair-minus').addEventListener('click', () => { if (S.repair > 0)      { S.repair -= 5000; upd(); } });
+    $('repair-plus' ).addEventListener('click', () => { if (S.repair < 300000) { S.repair += 5000; upd(); } });
   })();
 
-  // Dot indicators
+  /* 個人綜所稅率：離散滑桿 */
+  ;(function() {
+    const taxSliderEl = $('tax-slider');
+    const taxDisplay  = $('taxRate-val');
+    const ticks       = document.querySelectorAll('.tick');
+    function updateTax(idx) {
+      taxIdx = idx;
+      S.taxRate = TAX_OPTIONS[idx];
+      taxDisplay.textContent = (TAX_OPTIONS[idx] * 100).toFixed(0);
+      taxSliderEl.value = idx;
+      setFill(taxSliderEl);
+      ticks.forEach((t, i) => t.classList.toggle('active', i === idx));
+      render();
+    }
+    taxSliderEl.addEventListener('input', () => updateTax(+taxSliderEl.value));
+    ticks.forEach(t => t.addEventListener('click', () => updateTax(+t.dataset.i)));
+    setFill(taxSliderEl);
+  })();
+
+  /* Dots scroll indicator + auto-scroll to center (best) card */
   const wrap = $('plansWrap');
   const dots = document.querySelectorAll('#dots .dot');
   if (wrap && dots.length) {
@@ -895,6 +983,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const idx = Math.min(Math.round(wrap.scrollLeft / cardW), dots.length - 1);
       dots.forEach((d, i) => d.classList.toggle('active', i === idx));
     }, { passive: true });
+
+    requestAnimationFrame(() => {
+      const cardW = wrap.querySelector('.plan').offsetWidth + 14;
+      wrap.scrollLeft = cardW;
+    });
   }
 
   render();
